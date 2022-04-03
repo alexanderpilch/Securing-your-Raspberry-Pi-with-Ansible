@@ -12,4 +12,9 @@ alternative_user_password: "$6$Wl7XypEyz6j$RHnxNY5b4MareNEvCqGWBANk6LsYqsMYCyZ6R
 pi_sudoersd_path: "/etc/sudoers.d/010_pi-nopasswd"
 sshd_config_path: "/etc/ssh/sshd_config"
 
+boot_config_path: "/boot/config.txt"
+
+enable_wifi: "yes"
+enable_bluetooth: "no"
+
 ...

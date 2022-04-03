@@ -33,3 +33,46 @@
       path: "{{ pi_sudoersd_path }}"
       regexp: "^pi"
       line: "pi ALL=(ALL) PASSWD: ALL"
+
+  - name: "Disable unnecessary services"
+    systemd:
+      name: "{{ item }}"
+      enabled: no
+      masked: yes
+    with_items:
+      - avahi-daemon
+      - hciuart
+      - triggerhappy
+
+  - name: "Reduce GPU memory to minimum (16mb)"
+    lineinfile:
+      path: "{{ boot_config_path }}"
+      regexp: "^gpu_mem"
+      insertafter: "EOF"
+      line: "gpu_mem=16"
+
+  - name: "Update activation of Bluetooth"
+    lineinfile:
+      state: "{{ (enable_bluetooth != 'yes') | ternary('present', 'absent')}}"
+      path: "{{ boot_config_path }}"
+      regexp: "^dtoverlay=disable-bt"
+      insertafter: "EOF"
+      line: "dtoverlay=disable-bt"
+
+  - name: "Disable Bluetooth service"
+    systemd:
+      name: "{{ item }}"
+      enabled: no
+      masked: yes
+    with_items:
+      - bluetooth
+    when: enable_bluetooth != "yes"
+
+  - name: "Update activation of wifi"
+    lineinfile:
+      state: "{{ (enable_wifi != 'yes') | ternary('present', 'absent')}}"
+      path: "{{ boot_config_path }}"
+      regexp: "^dtoverlay=disable-wifi"
+      insertafter: "EOF"
+      line: "dtoverlay=disable-wifi"
+
