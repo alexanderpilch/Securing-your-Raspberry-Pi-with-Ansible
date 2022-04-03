@@ -2,9 +2,9 @@
     apt:
       name: ufw
 
-  - name: Start and enable UFW
+  - name: Disable UFW
     ufw:
-      state: enabled
+      state: reset
 
   - name: Establish default incoming firewall rule
     ufw:
@@ -21,3 +21,13 @@
       rule: limit
       port: ssh
       proto: tcp
+
+  - name: Allow igmp multicast
+    ufw:
+      rule: allow
+      proto: igmp
+      dest: 224.0.0.0/24
+
+  - name: Start and enable UFW
+    ufw:
+      state: enabled
