@@ -75,3 +75,10 @@
       insertafter: "EOF"
       line: "dtoverlay=disable-wifi"
 
+  - name: "WPA supplicant service activated: {{ enable_wifi }}"
+    systemd:
+      name: "{{ item }}"
+      enabled: "{{ (enable_wifi == 'yes') | ternary('yes', 'no') }}"
+      masked: "{{ (enable_wifi == 'yes') | ternary('no', 'yes')  }}"
+    with_items:
+      - wpa_supplicant
