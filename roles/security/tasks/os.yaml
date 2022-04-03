@@ -44,33 +44,32 @@
       - hciuart
       - triggerhappy
 
-  - name: "Reduce GPU memory to minimum (16mb)"
+  - name: "Reduce GPU memory to {{ gpu_memory }}mb"
     lineinfile:
       path: "{{ boot_config_path }}"
       regexp: "^gpu_mem"
       insertafter: "EOF"
-      line: "gpu_mem=16"
+      line: "gpu_mem={{ gpu_memory }}"
 
-  - name: "Update activation of Bluetooth"
+  - name: "Bluetooth activated: {{ enable_bluetooth }}"
     lineinfile:
-      state: "{{ (enable_bluetooth != 'yes') | ternary('present', 'absent')}}"
+      state: "{{ (enable_bluetooth != 'yes') | ternary('present', 'absent') }}"
       path: "{{ boot_config_path }}"
       regexp: "^dtoverlay=disable-bt"
       insertafter: "EOF"
       line: "dtoverlay=disable-bt"
 
-  - name: "Disable Bluetooth service"
+  - name: "Bluetooth service activated: {{ enable_bluetooth }}"
     systemd:
       name: "{{ item }}"
-      enabled: no
-      masked: yes
+      enabled: "{{ (enable_bluetooth == 'yes') | ternary('yes', 'no') }}"
+      masked: "{{ (enable_bluetooth == 'yes') | ternary('no', 'yes')  }}"
     with_items:
       - bluetooth
-    when: enable_bluetooth != "yes"
 
-  - name: "Update activation of wifi"
+  - name: "Wifi activated: {{ enable_wifi }}"
     lineinfile:
-      state: "{{ (enable_wifi != 'yes') | ternary('present', 'absent')}}"
+      state: "{{ (enable_wifi != 'yes') | ternary('present', 'absent') }}"
       path: "{{ boot_config_path }}"
       regexp: "^dtoverlay=disable-wifi"
       insertafter: "EOF"
