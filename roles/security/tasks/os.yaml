@@ -41,7 +41,6 @@
       masked: yes
     with_items:
       - avahi-daemon
-      - hciuart
       - triggerhappy
 
   - name: "Reduce GPU memory to {{ gpu_memory }}mb"
@@ -66,6 +65,7 @@
       masked: "{{ (enable_bluetooth == 'yes') | ternary('no', 'yes')  }}"
     with_items:
       - bluetooth
+      - hciuart
 
   - name: "Wifi activated: {{ enable_wifi }}"
     lineinfile:
