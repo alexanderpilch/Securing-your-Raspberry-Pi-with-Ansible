@@ -62,7 +62,7 @@
     systemd:
       name: "{{ item }}"
       enabled: "{{ (enable_bluetooth == 'yes') | ternary('yes', 'no') }}"
-      masked: "{{ (enable_bluetooth == 'yes') | ternary('no', 'yes')  }}"
+      masked: "{{ (enable_bluetooth == 'yes') | ternary('no', 'yes') }}"
     with_items:
       - bluetooth
       - hciuart
@@ -79,6 +79,6 @@
     systemd:
       name: "{{ item }}"
       enabled: "{{ (enable_wifi == 'yes') | ternary('yes', 'no') }}"
-      masked: "{{ (enable_wifi == 'yes') | ternary('no', 'yes')  }}"
+      masked: "{{ (enable_wifi == 'yes') | ternary('no', 'yes') }}"
     with_items:
       - wpa_supplicant

@@ -2,6 +2,7 @@
 
   ansible_user: "pi"
   ansible_ssh_pass: "raspberry"
+  ansible_become_password: "raspberry"
 
 # uncomment & adjust after first run
 
