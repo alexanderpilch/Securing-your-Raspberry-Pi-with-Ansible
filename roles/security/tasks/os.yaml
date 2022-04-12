@@ -15,6 +15,13 @@
       insertafter: "EOF"
       line: "gpu_mem={{ gpu_memory }}"
 
+  - name: "Audio activated: {{ enable_audio }}"
+    lineinfile:
+      path: "{{ boot_config_path }}"
+      regexp: "^dtparam=audio="
+      insertafter: "EOF"
+      line: "dtparam=audio={{ (enable_audio == 'yes') | ternary('on', 'off') }}"
+
   - name: "Bluetooth activated: {{ enable_bluetooth }}"
     lineinfile:
       state: "{{ (enable_bluetooth != 'yes') | ternary('present', 'absent') }}"

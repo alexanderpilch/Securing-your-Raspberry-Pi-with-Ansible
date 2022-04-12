@@ -7,3 +7,4 @@ gpu_memory: 16
 enable_ip6: "no"
 enable_wifi: "yes"
 enable_bluetooth: "no"
+enable_audio: "no"

@@ -6,4 +6,10 @@
     roles:
       - base
       - security
-#      - docker
+
+  - hosts: docker
+    gather_facts: True
+    become: yes
+    become_user: root
+    roles:
+      - docker

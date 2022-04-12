@@ -22,7 +22,7 @@
       port: ssh
       proto: tcp
 
-  - name: Allow igmp multicast
+  - name: Allow local igmp multicast
     ufw:
       rule: allow
       proto: igmp

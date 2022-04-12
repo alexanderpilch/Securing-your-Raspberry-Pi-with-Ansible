@@ -4,4 +4,5 @@
     include_vars:
       file: "vars/main.yaml"
 
+  - include_tasks: apt.yaml
   - include_tasks: os.yaml
