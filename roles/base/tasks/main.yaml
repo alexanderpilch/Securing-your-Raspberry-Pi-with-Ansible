@@ -1,0 +1,7 @@
+---
+
+  - name: Include variables file
+    include_vars:
+      file: "vars/main.yaml"
+
+  - include_tasks: os.yaml

@@ -1,0 +1,17 @@
+  - name: Set users that are allowed to use SSH
+    lineinfile:
+      path: "{{ sshd_config_path }}"
+      insertafter: "EOF"
+      line: "AllowUsers {{ ansible_user }}"
+
+  - name: Set users that are not allowed to use SSH
+    lineinfile:
+      path: "{{ sshd_config_path }}"
+      insertafter: "EOF"
+      line: "DenyUsers pi root"
+
+  - name: "Make sudo require a password for the {{ ansible_user }} user"
+    lineinfile:
+      path: "{{ pi_sudoersd_path }}"
+      regexp: "^{{ ansible_user }}"
+      line: "{{ ansible_user }} ALL=(ALL) PASSWD: ALL"

@@ -4,7 +4,7 @@
 
   - name: Disable UFW
     ufw:
-      state: reset
+      state: disabled
 
   - name: Establish default incoming firewall rule
     ufw:
