@@ -54,3 +54,10 @@
       masked: "{{ (enable_wifi == 'yes') | ternary('no', 'yes') }}"
     with_items:
       - wpa_supplicant
+
+  - name: "{{ (enable_ip6 == 'yes') | ternary('Enable', 'Disable') }} IP6"
+    include_tasks: ../shared/cmdline.yaml
+    vars:
+      key: "ipv6.disable"
+      value: "{{ (enable_ip6 == 'yes') | ternary('0', '1') }}"
+      update: true
