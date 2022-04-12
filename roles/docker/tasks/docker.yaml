@@ -8,6 +8,7 @@
     - apt-transport-https
 
 - name: Add docker gpg key
+  warn: false
   shell:
     cmd: "curl -fsSL https://download.docker.com/linux/raspbian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg --yes"
   become: yes
@@ -38,6 +39,13 @@
     value: cpu
     update: false
 
+- name: "set cgroup_enable=cpuset in {{ boot_cmdline_path }}"
+  include_tasks: ../shared/cmdline.yaml
+  vars:
+    key: cgroup_enable
+    value: cpuset
+    update: false
+
 - name: "set cgroup_enable=memory in {{ boot_cmdline_path }}"
   include_tasks: ../shared/cmdline.yaml
   vars:
@@ -54,3 +62,4 @@
     update: true
     # will replace the value of the first matching key, if found;
     # will add it if it's not found
+
