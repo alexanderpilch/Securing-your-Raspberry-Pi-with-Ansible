@@ -31,3 +31,26 @@
       - containerd.io
   become: yes    
 
+- name: "set cgroup_enable=cpu in {{ boot_cmdline_path }}"
+  include_tasks: ../shared/cmdline.yaml
+  vars:
+    key: cgroup_enable
+    value: cpu
+    update: false
+
+- name: "set cgroup_enable=memory in {{ boot_cmdline_path }}"
+  include_tasks: ../shared/cmdline.yaml
+  vars:
+    key: cgroup_enable
+    value: memory
+    update: false
+    # will add the argument if the key-value-pair doesn't exist
+
+- name: "set cgroup_memory=1 in {{ boot_cmdline_path }}"
+  include_tasks: ../shared/cmdline.yaml
+  vars:
+    key: cgroup_memory
+    value: 1
+    update: true
+    # will replace the value of the first matching key, if found;
+    # will add it if it's not found
