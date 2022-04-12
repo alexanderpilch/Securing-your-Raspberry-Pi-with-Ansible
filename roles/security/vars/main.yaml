@@ -1,8 +1,4 @@
 ---
-
-boot_config_path: "/boot/config.txt"
-boot_cmdline_path: "/boot/cmdline.txt"
-
 gpu_memory: 16
 enable_ip6: "no"
 enable_wifi: "yes"
