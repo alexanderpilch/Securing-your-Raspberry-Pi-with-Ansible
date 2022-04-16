@@ -58,3 +58,35 @@
     # will replace the value of the first matching key, if found;
     # will add it if it's not found
 
+- name: Ensure group dockremap exists
+  group:
+    name: dockremap
+    gid: 10000
+
+- name: Ensure user dockremap exists
+  user:
+    name: dockremap
+    group: dockremap
+    uid: 10000
+    password: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits,punctuation') | password_hash('sha512') }}"
+    shell: /bin/bash
+
+- name: Configure uid mapping
+  copy:
+    dest: /etc/subuid
+    force: yes
+    content: "dockremap:10000:65536\n"
+
+- name: Configure gid mapping
+  copy:
+    dest: /etc/subgid
+    force: yes
+    content: "dockremap:10000:65536\n"
+
+- name: Update docker daemon config
+  copy: 
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
