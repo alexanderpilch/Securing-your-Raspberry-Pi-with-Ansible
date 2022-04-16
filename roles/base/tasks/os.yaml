@@ -15,3 +15,13 @@
       path: "{{ pi_sudoersd_path }}"
       regexp: "^{{ ansible_user }}"
       line: "{{ ansible_user }} ALL=(ALL) PASSWD: ALL"
+
+  - name: "Disable swap"
+    command: swapoff -a
+
+  - name: Disable dphys-swapfile service
+    systemd:
+      state: stopped
+      name: dphys-swapfile
+      enabled: no
+      masked: yes
