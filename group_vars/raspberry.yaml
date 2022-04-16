@@ -4,3 +4,5 @@ ansible_become_password: "user"
 
 boot_config_path: "/boot/config.txt"
 boot_cmdline_path: "/boot/cmdline.txt"
+
+enable_auditd: "no"

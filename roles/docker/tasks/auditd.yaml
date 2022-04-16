@@ -1,0 +1,17 @@
+- name: Add docker audit rules
+  copy: 
+    src: auditd/docker.rules
+    dest: /etc/audit/rules.d/docker.rules
+    owner: root
+    group: root
+    mode: 0640	
+
+- name: Regenerate audit rules
+  shell:
+    cmd: augenrules
+
+- name: Restart service
+  systemd:
+    state: restarted
+    name: auditd
+

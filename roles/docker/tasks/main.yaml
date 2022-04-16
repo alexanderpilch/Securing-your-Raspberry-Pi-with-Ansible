@@ -1,3 +1,5 @@
 ---
 
+  - include_tasks: auditd.yaml
+    when: enable_auditd != 'no'
   - include_tasks: docker.yaml

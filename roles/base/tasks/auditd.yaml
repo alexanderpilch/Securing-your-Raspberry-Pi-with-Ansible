@@ -1,0 +1,13 @@
+- name: Install auditd
+  apt:
+    pkg:
+    - auditd
+
+- name: Regenerate audit rules
+  cmd:
+    sh: augenrules
+
+- name: Restart service
+  systemd:
+    state: restarted
+    name: auditd
