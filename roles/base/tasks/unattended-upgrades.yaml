@@ -1,0 +1,41 @@
+- name: Install package unattended upgrades
+  apt:
+    pkg:
+    - unattended-upgrades
+    - apt-listchanges
+
+- name: Update 50unattended-upgrades
+  copy: 
+    src: unattended-upgrades/unattended-upgrades.conf
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Update 20auto-upgrades
+  copy: 
+    src: unattended-upgrades/auto-upgrades.conf
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable unattended upgrades
+  shell:
+    cmd: echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
+
+- name: Reconfigure package
+  shell:
+    cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
+
+- name: Enable service
+  systemd:
+    state: stopped
+    name: unattended-upgrades
+    enabled: yes
+    masked: no
+
+- name: Start service
+  systemd:
+    state: started
+    name: unattended-upgrades
