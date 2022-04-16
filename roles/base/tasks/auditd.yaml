@@ -4,8 +4,8 @@
     - auditd
 
 - name: Regenerate audit rules
-  cmd:
-    sh: augenrules
+  shell:
+    cmd: augenrules
 
 - name: Restart service
   systemd:
