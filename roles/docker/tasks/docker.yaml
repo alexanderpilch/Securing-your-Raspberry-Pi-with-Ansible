@@ -89,4 +89,12 @@
     dest: /etc/docker/daemon.json
     owner: root
     group: root
-    mode: 0644
+    mode: 0644	
+
+- name: Enable content trust
+  lineinfile:
+    path: "/etc/environment"
+    insertafter: "EOF"
+    regexp: '^(.*)export(.*)DOCKER_CONTENT_TRUST(.*)='
+    line: "export DOCKER_CONTENT_TRUST=1"
+
