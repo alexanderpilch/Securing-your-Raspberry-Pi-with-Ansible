@@ -8,21 +8,17 @@
     - apt-transport-https
 
 - name: Add docker gpg key
-  warn: false
   shell:
     cmd: "curl -fsSL https://download.docker.com/linux/raspbian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg --yes"
-  become: yes
   
 - name: Add docker repository
   shell:
     cmd: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/raspbian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-  become: yes
 
 - name: Update apt cache
   apt:
     update_cache: yes
     force: yes
-  become: yes    
 
 - name: Install docker packages
   apt:
@@ -30,14 +26,13 @@
       - docker-ce 
       - docker-ce-cli 
       - containerd.io
-  become: yes    
 
-- name: "set cgroup_enable=cpu in {{ boot_cmdline_path }}"
+- name: "set swapaccount=1 in {{ boot_cmdline_path }}"
   include_tasks: ../shared/cmdline.yaml
   vars:
-    key: cgroup_enable
-    value: cpu
-    update: false
+    key: swapaccount
+    value: 1
+    update: true
 
 - name: "set cgroup_enable=cpuset in {{ boot_cmdline_path }}"
   include_tasks: ../shared/cmdline.yaml

@@ -1,7 +1,6 @@
 # https://stackoverflow.com/questions/61972815/ansible-modify-cmdline-txt-on-raspberry-pi
 
 - name: "read {{ boot_cmdline_path }}"
-  become: true
   slurp: "src={{ boot_cmdline_path }}"
   register: result_cmdline
 
@@ -15,7 +14,6 @@
     regex_add_missing: '{{ "^((?!(?:.|\n)*" + regex_existing + ")((?:.|\n)*))$" }}'
 
 - name: update cmdline.txt
-  become: true
   copy:
     content: '{{ result_cmdline.content
         | b64decode
