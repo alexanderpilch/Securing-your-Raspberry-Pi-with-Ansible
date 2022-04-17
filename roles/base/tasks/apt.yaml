@@ -1,6 +1,11 @@
-  - name: Update apt packages list
-    apt:
-      upgrade: dist
-      update_cache: yes
-      cache_valid_time: 86400 #One day
+- name: Update apt packages list
+  apt:
+    upgrade: dist
+    update_cache: yes
+    cache_valid_time: 86400 #One day
 
+- name: Install common packages
+  apt:
+    pkg:
+    - mc
+    - python3-pip
