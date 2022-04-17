@@ -7,6 +7,10 @@
     - lsb-release
     - apt-transport-https
 
+- name: Install docker compose
+  pip:
+    name: docker-compose
+
 - name: Add docker gpg key
   shell:
     cmd: "curl -fsSL https://download.docker.com/linux/raspbian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg --yes"
