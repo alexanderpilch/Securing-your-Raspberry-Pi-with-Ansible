@@ -9,3 +9,5 @@
   - include_tasks: unattended-upgrades.yaml
   - include_tasks: auditd.yaml
     when: enable_auditd != 'no'
+  - include_tasks: selinux.yaml
+    when: enable_selinux != 'no'

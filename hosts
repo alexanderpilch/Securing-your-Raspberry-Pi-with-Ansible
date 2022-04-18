@@ -4,5 +4,7 @@ raspberry
 [docker:children]
 #raspberry
 
-[raspberry]
+[pihole:children]
+#raspberry
 
+[raspberry]

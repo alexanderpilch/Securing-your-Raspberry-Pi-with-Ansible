@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  pihole:
+    environment:
+      TZ: '{{ timezone }}'
+      WEBPASSWORD: '{{ password }}'

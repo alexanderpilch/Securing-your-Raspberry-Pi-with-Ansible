@@ -13,3 +13,10 @@
     become_user: root
     roles:
       - docker
+
+  - hosts: pihole
+    gather_facts: True
+    become: yes
+    become_user: root
+    roles:
+      - pihole

@@ -1,0 +1,23 @@
+- name: "Ensures {{ pihole_root }} directory exists"
+  file: path={{ pihole_root }} state=directory
+
+- name: Copy Docker Compose files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ pihole_root }}/docker-compose.yaml"
+  loop:
+  - docker-compose.yaml
+
+- name: Template docker-compose.override.yaml
+  template:
+    src: templates/docker-compose.override.yaml
+    dest: "{{ pihole_root }}/docker-compose.override.yaml"
+
+- name: Undeploy Docker Compose stack
+  docker_compose:
+    project_src: "{{ pihole_root }}"
+    state: absent
+
+- name: Deploy Docker Compose stack
+  docker_compose:
+    project_src: "{{ pihole_root }}"

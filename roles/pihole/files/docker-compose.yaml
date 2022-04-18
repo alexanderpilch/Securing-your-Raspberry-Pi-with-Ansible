@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    read_only: true
+    image: pihole/pihole:latest
+    ports:
+      - "80:80/tcp"
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'    
+    restart: unless-stopped

@@ -1,0 +1,9 @@
+- name: Install selinux
+  apt:
+    pkg:
+    - selinux-basics 
+    - selinux-policy-default
+
+- name: Activate selinux
+  shell:
+    cmd: selinux-activate
