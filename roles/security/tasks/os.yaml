@@ -4,7 +4,7 @@
       name: "{{ item }}"
       enabled: no
       masked: yes
-    with_items:
+    loop:
       - avahi-daemon
       - triggerhappy
 
@@ -35,7 +35,7 @@
       name: "{{ item }}"
       enabled: "{{ (enable_bluetooth == 'yes') | ternary('yes', 'no') }}"
       masked: "{{ (enable_bluetooth == 'yes') | ternary('no', 'yes') }}"
-    with_items:
+    loop:
       - bluetooth
       - hciuart
 
@@ -52,7 +52,7 @@
       name: "{{ item }}"
       enabled: "{{ (enable_wifi == 'yes') | ternary('yes', 'no') }}"
       masked: "{{ (enable_wifi == 'yes') | ternary('no', 'yes') }}"
-    with_items:
+    loop:
       - wpa_supplicant
 
   - name: "{{ (enable_ip6 == 'yes') | ternary('Enable', 'Disable') }} IP6"

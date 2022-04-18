@@ -7,9 +7,12 @@
     - lsb-release
     - apt-transport-https
 
-- name: Install docker compose
+- name: Install python packages
   pip:
-    name: docker-compose
+    name: "{{ item }}"
+  loop:
+  - docker-compose
+  - docker
 
 - name: Add docker gpg key
   shell:
